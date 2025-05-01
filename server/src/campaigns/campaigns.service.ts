@@ -3,6 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AdCampaign } from './campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto, UpdateCampaignDto } from './campaign.dto';
+import {
+  FilterOperator,
+  paginate,
+  Paginated,
+  PaginateQuery,
+} from 'nestjs-paginate';
 
 @Injectable()
 export class CampaignsService {
@@ -15,8 +21,16 @@ export class CampaignsService {
     return await this.repository.save(campaign);
   }
 
-  async getAll(): Promise<AdCampaign[]> {
-    return await this.repository.find();
+  async getAll(query: PaginateQuery): Promise<Paginated<AdCampaign>> {
+    return paginate(query, this.repository, {
+      sortableColumns: ['campaignName', 'createdAt', 'active'],
+      searchableColumns: ['campaignName'],
+      filterableColumns: {
+        campaignName: [FilterOperator.ILIKE],
+        active: [FilterOperator.EQ],
+      },
+      defaultSortBy: [['createdAt', 'DESC']],
+    });
   }
 
   async getById(id: number): Promise<AdCampaign | null> {

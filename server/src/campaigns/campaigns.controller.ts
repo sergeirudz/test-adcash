@@ -9,16 +9,20 @@ import {
   Post,
   ParseIntPipe,
 } from '@nestjs/common';
+import { Paginate, PaginateQuery, Paginated } from 'nestjs-paginate';
 import { CampaignsService } from './campaigns.service';
 import { CreateCampaignDto, UpdateCampaignDto } from './campaign.dto';
+import { AdCampaign } from './campaign.entity';
 
 @Controller('campaigns')
 export class CampaignsController {
   constructor(private campaignsService: CampaignsService) {}
 
   @Get()
-  async getAllCampaigns() {
-    return await this.campaignsService.getAll();
+  async getAllCampaigns(
+    @Paginate() query: PaginateQuery,
+  ): Promise<Paginated<AdCampaign>> {
+    return await this.campaignsService.getAll(query);
   }
 
   @Get(':id')
