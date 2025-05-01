@@ -22,7 +22,24 @@ export class CampaignsService {
   }
 
   async getAll(query: PaginateQuery): Promise<Paginated<AdCampaign>> {
-    return paginate(query, this.repository, {
+    const adCreativeUrl = query.filter?.adCreativeUrl;
+    const queryBuilder = this.repository.createQueryBuilder('campaign');
+
+    if (adCreativeUrl) {
+      const urlValue = Array.isArray(adCreativeUrl)
+        ? adCreativeUrl[0]
+        : adCreativeUrl;
+
+      queryBuilder.andWhere(
+        `EXISTS (
+      SELECT FROM jsonb_array_elements(campaign."adCreatives"::jsonb) as creative
+      WHERE creative->>'url' ILIKE :url
+    )`,
+        { url: `%${urlValue}%` },
+      );
+    }
+
+    return paginate(query, queryBuilder, {
       sortableColumns: ['campaignName', 'createdAt', 'active'],
       searchableColumns: ['campaignName'],
       filterableColumns: {
