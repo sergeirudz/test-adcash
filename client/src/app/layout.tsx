@@ -1,46 +1,30 @@
-import classNames from "classnames";
-import type { Metadata } from "next";
-import "./globals.css";
+import * as React from "react";
+import type { Viewport } from "next";
 
-export const metadata: Metadata = {
-  title: "AdCash",
-  description: "AdCash",
-};
+import "@/styles/global.css";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+import { UserProvider } from "@/contexts/user-context";
+import { LocalizationProvider } from "@/components/core/localization-provider";
+import { ThemeProvider } from "@/components/core/theme-provider/theme-provider";
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+} satisfies Viewport;
+
+interface LayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function Layout({ children }: LayoutProps): React.JSX.Element {
   return (
     <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" type="image/png" href="/favicon.webp" sizes="32x32" />
-        <meta name="theme-color" content="#ebff08" />
-
-        <meta property="og:title" content="AdCash" />
-        <meta name="twitter:title" content="AdCash" />
-
-        <meta name="description" content="AdCash" />
-        <meta property="og:description" content="AdCash" />
-        <meta name="twitter:description" content="AdCash" />
-
-        <meta
-          property="og:image"
-          content="https://adcash.com/wp-content/uploads/2024/11/fullHomepagePreview.png"
-        />
-        <meta
-          name="twitter:image"
-          content="https://adcash.com/wp-content/uploads/2024/11/fullHomepagePreview.png"
-        />
-      </head>
-      <body
-        className={classNames("antialiased", {
-          "debug-screens": process.env.NODE_ENV === "development",
-        })}
-      >
-        {children}
+      <body>
+        <LocalizationProvider>
+          <UserProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </UserProvider>
+        </LocalizationProvider>
       </body>
     </html>
   );

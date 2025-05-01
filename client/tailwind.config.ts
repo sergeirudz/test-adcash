@@ -7,15 +7,15 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: 'class',
+  darkMode: "class",
   debugScreens: {
-      position: ['bottom', 'left'],
-      selector: '.debug-screens',
-      style: {
-        backgroundColor: 'black',
-        color: 'white',
-      },
+    position: ["bottom", "left"],
+    selector: ".debug-screens",
+    style: {
+      backgroundColor: "black",
+      color: "white",
     },
+  },
   theme: {
     extend: {
       colors: {
@@ -24,8 +24,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-debug-screens'),
-  ],
+  plugins: [require("tailwindcss-debug-screens")],
 };
 export default config;
