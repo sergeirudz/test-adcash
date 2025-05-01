@@ -7,14 +7,13 @@ import {
   Param,
   Patch,
   Post,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CampaignsService } from './campaigns.service';
 import { CreateCampaignDto, UpdateCampaignDto } from './campaign.dto';
 
 @Controller('campaigns')
 export class CampaignsController {
-  private campaigns: any[] = [];
-
   constructor(private campaignsService: CampaignsService) {}
 
   @Get()
@@ -24,13 +23,14 @@ export class CampaignsController {
 
   @Get(':id')
   async getCampaignById(
-    @Param('id')
+    @Param('id', ParseIntPipe)
     id: number,
   ) {
     return await this.campaignsService.getById(id);
   }
 
   @Post()
+  @HttpCode(201)
   createCampaign(@Body() campaign: CreateCampaignDto) {
     return this.campaignsService.create(campaign);
   }
@@ -38,7 +38,7 @@ export class CampaignsController {
   @Delete(':id')
   @HttpCode(204)
   deleteCampaign(
-    @Param('id')
+    @Param('id', ParseIntPipe)
     id: number,
   ) {
     return this.campaignsService.delete(id);
@@ -46,7 +46,7 @@ export class CampaignsController {
 
   @Patch(':id')
   async updateCampaign(
-    @Param('id')
+    @Param('id', ParseIntPipe)
     id: number,
     @Body() campaign: UpdateCampaignDto,
   ) {

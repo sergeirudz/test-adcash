@@ -12,7 +12,9 @@ import { PartialType } from '@nestjs/mapped-types';
 export class CreateCampaignDto {
   @IsString()
   @IsNotEmpty()
-  @Length(1, 200)
+  @Length(1, 200, {
+    message: 'Campaign name must be between 1 and 200 characters',
+  })
   campaignName: string;
 
   @IsArray()

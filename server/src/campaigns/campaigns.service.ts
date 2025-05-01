@@ -18,7 +18,7 @@ export class CampaignsService {
   async getAll(): Promise<AdCampaign[]> {
     return await this.repository.find();
   }
-  //
+
   async getById(id: number): Promise<AdCampaign | null> {
     if (!id) return null;
     return await this.repository.findOne({ where: { id } });
@@ -33,13 +33,7 @@ export class CampaignsService {
     const existingCampaign = await this.repository.findOne({ where: { id } });
     if (!existingCampaign) return null;
 
-    // Merge the existing campaign with the new data
-    const updatedCampaign = {
-      ...existingCampaign,
-      ...campaign,
-    };
-
-    return this.repository.save({ ...existingCampaign, ...updatedCampaign });
+    return this.repository.save({ ...existingCampaign, ...campaign });
   }
 
   async delete(id: number): Promise<any> {
