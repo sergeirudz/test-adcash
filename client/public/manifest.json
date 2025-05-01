@@ -1,0 +1,17 @@
+{
+  "theme_color": "#8548e1",
+  "background_color": "#e0c8fd",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "AdCash",
+  "short_name": "AdCash",
+  "description": "AdCash",
+  "icons": [
+    {
+      "src": "/apple-touch-icon-57x57.webp",
+      "sizes": "57x57",
+      "type": "image/webp"
+    }
+  ]
+}
