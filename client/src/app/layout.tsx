@@ -6,6 +6,7 @@ import "@/styles/global.css";
 import { UserProvider } from "@/contexts/user-context";
 import { LocalizationProvider } from "@/components/core/localization-provider";
 import { ThemeProvider } from "@/components/core/theme-provider/theme-provider";
+import ReduxProvider from "@/lib/redux/ReduxProvider";
 
 export const viewport = {
   width: "device-width",
@@ -22,7 +23,9 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
       <body>
         <LocalizationProvider>
           <UserProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ReduxProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </ReduxProvider>
           </UserProvider>
         </LocalizationProvider>
       </body>

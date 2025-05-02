@@ -10,7 +10,7 @@ function generateToken(): string {
 
 const user = {
   id: "USR-000",
-  avatar: "/assets/avatar.png",
+  avatar: "",
   firstName: "FirstName",
   lastName: "LastName",
   email: "adcash@adcash.com",
@@ -52,7 +52,7 @@ class AuthClient {
   }
 
   async signInWithPassword(
-    params: SignInWithPasswordParams,
+    params: SignInWithPasswordParams
   ): Promise<{ error?: string }> {
     const { email, password } = params;
 
