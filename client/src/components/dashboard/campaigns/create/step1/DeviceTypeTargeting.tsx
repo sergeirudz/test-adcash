@@ -7,7 +7,7 @@ import CardHeader from "@mui/material/CardHeader";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 
 export default function DeviceTypeTargeting(): JSX.Element {
   return (
@@ -21,7 +21,11 @@ export default function DeviceTypeTargeting(): JSX.Element {
         <CardContent>
           <FormGroup>
             <Grid container spacing={3}>
-              <Grid xs={6}>
+              <Grid
+                size={{
+                  xs: 6,
+                }}
+              >
                 <FormControlLabel
                   control={<Checkbox defaultChecked />}
                   label="Desktop"
@@ -31,7 +35,11 @@ export default function DeviceTypeTargeting(): JSX.Element {
                   label="Console"
                 />
               </Grid>
-              <Grid xs={6}>
+              <Grid
+                size={{
+                  xs: 6,
+                }}
+              >
                 <FormControlLabel
                   control={<Checkbox defaultChecked />}
                   label="Smartphone"

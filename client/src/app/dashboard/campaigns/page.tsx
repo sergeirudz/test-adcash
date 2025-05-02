@@ -1,14 +1,15 @@
-import * as React from "react";
+import type { JSX } from "react";
 import type { Metadata } from "next";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { config } from "@/config";
+import CampaignsTable from "@/components/dashboard/campaigns/list/CampaignsTable";
 
 export const metadata = {
   title: `Campaigns | ${config.site.name}`,
 } satisfies Metadata;
 
-export default function Page(): React.JSX.Element {
+export default function Page(): JSX.Element {
   return (
     <Stack spacing={3}>
       <Stack direction="column" spacing={3}>
@@ -17,12 +18,7 @@ export default function Page(): React.JSX.Element {
             Campaigns
           </Typography>
         </Stack>
-        <Typography variant="h4" component="h1">
-          Filter here
-        </Typography>
-        <Typography variant="h4" component="h1">
-          Table here
-        </Typography>
+        <CampaignsTable />
       </Stack>
     </Stack>
   );

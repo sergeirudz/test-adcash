@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
+import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 
 import { createTheme } from "@/styles/theme/create-theme";
 

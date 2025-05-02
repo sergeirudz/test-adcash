@@ -29,11 +29,13 @@ export function Notifications(): React.JSX.Element {
         <Divider />
         <CardContent>
           <Grid container spacing={6} wrap="wrap">
-            <Grid size={{
-              xs: 12,
-              sm:6,
-              md: 4,
-            }}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6,
+                md: 4,
+              }}
+            >
               <Stack spacing={1}>
                 <Typography variant="h6">Email</Typography>
                 <FormGroup>
@@ -48,11 +50,13 @@ export function Notifications(): React.JSX.Element {
                 </FormGroup>
               </Stack>
             </Grid>
-            <Grid size={{
-              xs: 12,
-              sm:6,
-              md: 4,
-            }}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6,
+                md: 4,
+              }}
+            >
               <Stack spacing={1}>
                 <Typography variant="h6">Phone</Typography>
                 <FormGroup>

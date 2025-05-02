@@ -1,6 +1,6 @@
-import * as React from "react";
 import type { Metadata } from "next";
-import Grid from "@mui/material/Unstable_Grid2";
+import type { JSX } from "react";
+import Grid from "@mui/material/Grid";
 import { config } from "@/config";
 import Typography from "@mui/material/Typography";
 import { DashboardCard } from "@/components/dashboard/dashboard-card";
@@ -28,16 +28,26 @@ const cards = [
   },
 ] satisfies DashboardCard[];
 
-export default function Page(): React.JSX.Element {
+export default function Page(): JSX.Element {
   return (
     <Grid container spacing={3}>
-      <Grid xs={12}>
+      <Grid
+        size={{
+          xs: 12,
+        }}
+      >
         <Typography variant="h5" component="h1">
           Get started with Adcash:
         </Typography>
       </Grid>
       {cards.map((card) => (
-        <Grid key={card.id} sm={4} xs={12}>
+        <Grid
+          key={card.id}
+          size={{
+            xs: 12,
+            sm: 4,
+          }}
+        >
           <DashboardCard data={card} />
         </Grid>
       ))}

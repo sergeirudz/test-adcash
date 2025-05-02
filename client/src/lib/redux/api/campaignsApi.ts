@@ -76,21 +76,21 @@ export const campaignsApi = createApi({
           if (params.filter.campaignName) {
             queryParams.append(
               "filter.campaignName",
-              `$ilike:${params.filter.campaignName}`
+              `$ilike:${params.filter.campaignName}`,
             );
           }
 
           if (params.filter.active !== undefined) {
             queryParams.append(
               "filter.active",
-              params.filter.active.toString()
+              params.filter.active.toString(),
             );
           }
 
           if (params.filter.adCreativeUrl) {
             queryParams.append(
               "filter.adCreativeUrl",
-              params.filter.adCreativeUrl
+              params.filter.adCreativeUrl,
             );
           }
         }

@@ -52,7 +52,7 @@ class AuthClient {
   }
 
   async signInWithPassword(
-    params: SignInWithPasswordParams
+    params: SignInWithPasswordParams,
   ): Promise<{ error?: string }> {
     const { email, password } = params;
 
