@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
+import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
 
 import { createTheme } from "@/styles/theme/create-theme";
 
@@ -19,10 +19,10 @@ export function ThemeProvider({
 
   return (
     <EmotionCache options={{ key: "mui" }}>
-      <CssVarsProvider theme={theme}>
+      <MUIThemeProvider theme={theme}>
         <CssBaseline />
         {children}
-      </CssVarsProvider>
+      </MUIThemeProvider>
     </EmotionCache>
   );
 }
