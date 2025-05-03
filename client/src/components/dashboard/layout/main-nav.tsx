@@ -73,9 +73,8 @@ export function MainNav(): React.JSX.Element {
               </Badge>
             </Tooltip>
             <Avatar
-              // onClick={userPopover.handleOpen}
+              onClick={userPopover.handleOpen}
               ref={userPopover.anchorRef}
-              src=""
               sx={{ cursor: "pointer" }}
             />
           </Stack>

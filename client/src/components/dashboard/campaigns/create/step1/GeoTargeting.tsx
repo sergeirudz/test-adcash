@@ -5,6 +5,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Stack from "@mui/material/Stack";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import GeoCountrySelect from "@/components/dashboard/campaigns/create/step1/GeoCountrySelect";
 
 export default function GeoTargeting(): JSX.Element {
   return (
@@ -20,7 +25,26 @@ export default function GeoTargeting(): JSX.Element {
         />
         <CardContent>
           <Stack spacing={3} sx={{ maxWidth: "sm" }}>
-            Geotargeting here
+            <FormControl>
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="worldwide"
+                  control={<Radio />}
+                  label="Worldwide"
+                />
+
+                <FormControlLabel
+                  value="countries"
+                  control={<Radio />}
+                  label="Countries"
+                />
+                <GeoCountrySelect />
+              </RadioGroup>
+            </FormControl>
           </Stack>
         </CardContent>
       </Card>

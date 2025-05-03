@@ -28,7 +28,7 @@ const schema = zod.object({
   password: zod.string().min(1, { message: "Password is required" }),
 });
 
-type Values = zod.infer<typeof schema>;
+export type Values = zod.infer<typeof schema>;
 
 const defaultValues = {
   email: "adcash@adcash.com",

@@ -22,7 +22,7 @@ import Budget from "@/components/dashboard/campaigns/create/step4/Budget";
 import Bids from "@/components/dashboard/campaigns/create/step4/Bids";
 import Cappings from "@/components/dashboard/campaigns/create/step4/Cappings";
 import Overview from "@/components/dashboard/campaigns/create/step5/Overview";
-import CreateCampaign from "@/components/dashboard/campaigns/create/step5/CreateCampaign";
+import CreateCampaignContextProvider from "@/components/dashboard/campaigns/create/CreateCampaignContextProvider";
 
 const steps = [
   {
@@ -100,8 +100,7 @@ export default function CreateCampaignStepper() {
   };
 
   return (
-    <>
-      <CreateCampaign />
+    <CreateCampaignContextProvider>
       <Box sx={{ width: "100%" }}>
         <Stepper nonLinear activeStep={activeStep}>
           {steps.map((step, index) => (
@@ -168,6 +167,6 @@ export default function CreateCampaignStepper() {
           )}
         </div>
       </Box>
-    </>
+    </CreateCampaignContextProvider>
   );
 }
