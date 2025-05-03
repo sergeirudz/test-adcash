@@ -18,6 +18,7 @@ export interface Campaign {
   active: boolean;
   createdAt: string;
   adCreatives: Array<{ url: string; [key: string]: any }>;
+
   [key: string]: any;
 }
 
@@ -102,7 +103,19 @@ export const campaignsApi = createApi({
       },
       providesTags: ["getCampaigns"],
     }),
+
+    deleteCampaignById: build.mutation<void, string | number>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["getCampaigns"],
+    }),
   }),
 });
 
-export const { useCreateCampaignMutation, useGetCampaignsQuery } = campaignsApi;
+export const {
+  useCreateCampaignMutation,
+  useGetCampaignsQuery,
+  useDeleteCampaignByIdMutation,
+} = campaignsApi;
