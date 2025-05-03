@@ -7,7 +7,7 @@ import {
   Param,
   Patch,
   Post,
-  ParseIntPipe,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { Paginate, PaginateQuery, Paginated } from 'nestjs-paginate';
 import { CampaignsService } from './campaigns.service';
@@ -27,7 +27,7 @@ export class CampaignsController {
 
   @Get(':id')
   async getCampaignById(
-    @Param('id', ParseIntPipe)
+    @Param('id', ParseUUIDPipe)
     id: number,
   ) {
     return await this.campaignsService.getById(id);
@@ -42,7 +42,7 @@ export class CampaignsController {
   @Delete(':id')
   @HttpCode(204)
   deleteCampaign(
-    @Param('id', ParseIntPipe)
+    @Param('id', ParseUUIDPipe)
     id: number,
   ) {
     return this.campaignsService.delete(id);
@@ -50,7 +50,7 @@ export class CampaignsController {
 
   @Patch(':id')
   async updateCampaign(
-    @Param('id', ParseIntPipe)
+    @Param('id', ParseUUIDPipe)
     id: number,
     @Body() campaign: UpdateCampaignDto,
   ) {
