@@ -7,6 +7,15 @@ steps:
     id: 'push-adcash-server'
     args: [ 'push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA' ]
 
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'run-migrations'
+    args: [
+      'run', '--rm',
+      '-e', 'DATABASE_URI=$_DATABASE_URI',
+      'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA',
+      'npm', 'run', 'migration:run:prod'
+    ]
+
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'deploy-adcash-server'
     args:
