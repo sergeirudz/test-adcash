@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { config } from "@/config";
 
 export interface CampaignsQueryParams {
   page?: number;
@@ -45,7 +46,7 @@ export interface PaginatedResponse<T> {
 
 export const campaignsApi = createApi({
   reducerPath: "campaignsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/v1/campaigns" }), // TODO: use env variable
+  baseQuery: fetchBaseQuery({ baseUrl: config.server.url }),
   tagTypes: ["getCampaigns"],
   endpoints: (build) => ({
     createCampaign: build.mutation({

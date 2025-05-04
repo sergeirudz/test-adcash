@@ -13,20 +13,47 @@ steps:
       - 'gcloud'
       - 'run'
       - 'deploy'
-      - 'server'
+      - 'adcash-server'
       - '--image=europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA'
       - '--region=europe-west1'
       - '--platform=managed'
       - '--quiet'
       - '--port=80'
       - '--allow-unauthenticated'
-      - '--set-env-vars=DATABASE_URI=$_DATABASE_URI'
+      - '--set-env-vars=DATABASE_URI=$_DATABASE_URI,CORS_ORIGIN=$_CORS_ORIGIN'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-adcash-client'
+    args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/client:$COMMIT_SHA', '-f', 'client/Dockerfile', './client' ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-adcash-client'
+    args: [ 'push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/client:$COMMIT_SHA' ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-adcash-client'
+    args:
+      - 'gcloud'
+      - 'run'
+      - 'deploy'
+      - 'adcash-client'
+      - '--image=europe-west1-docker.pkg.dev/$PROJECT_ID/images/client:$COMMIT_SHA'
+      - '--region=europe-west1'
+      - '--platform=managed'
+      - '--quiet'
+      - '--port=3000'
+      - '--allow-unauthenticated'
+      - '--set-env-vars=NEXT_PUBLIC_SERVER_URL=$_SERVER_URL,NEXT_PUBLIC_SITE_URL=$_CLIENT_URL'
 
 images:
   - 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA'
+  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/client:$COMMIT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
 substitutions:
   _DATABASE_URI: ''
+  _CORS_ORIGIN: 'https://adcash-client-[PROJECT_ID].europe-west1.run.app'
+  _SERVER_URL: 'https://adcash-server-[PROJECT_ID].europe-west1.run.app/'
+  _CLIENT_URL: 'https://adcash-client-[PROJECT_ID].europe-west1.run.app'
