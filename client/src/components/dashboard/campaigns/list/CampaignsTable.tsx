@@ -68,6 +68,34 @@ const CampaignsTable: FC = () => {
     );
   };
 
+  const renderPayouts = (params: GridRenderCellParams) => {
+    const campaignGoals = params.row.campaignGoals || [];
+
+    if (campaignGoals.length === 0)
+      return <Typography variant="body2">No payouts set</Typography>;
+
+    return (
+      <List dense disablePadding sx={{ maxHeight: 120, overflow: "auto" }}>
+        {campaignGoals.map((goal: any, index: number) => (
+          <ListItem key={index} disablePadding sx={{ py: 0.5 }}>
+            <Box display="flex" alignItems="center">
+              <img
+                loading="lazy"
+                width="20"
+                height="14"
+                src={`https://flagcdn.com/w20/${goal.countryCode.toLowerCase()}.png`}
+                alt=""
+                style={{ marginRight: 5 }}
+              />
+              <Typography variant="caption" component="div" noWrap>
+                {`${goal.countryCode}: $${goal.payoutSum}`}
+              </Typography>
+            </Box>
+          </ListItem>
+        ))}
+      </List>
+    );
+  };
   const renderActions = (params: GridRenderCellParams) => {
     return (
       <Box>
@@ -88,7 +116,14 @@ const CampaignsTable: FC = () => {
         width: 130,
         filterable: true,
       },
-
+      {
+        field: "payouts",
+        headerName: "Payouts",
+        width: 200,
+        filterable: false,
+        sortable: false,
+        renderCell: renderPayouts,
+      },
       {
         field: "landingPages",
         headerName: "Landing Pages",
@@ -115,6 +150,7 @@ const CampaignsTable: FC = () => {
         campaignName: campaign.campaignName,
         active: campaign.active,
         adCreatives: campaign.adCreatives || [],
+        campaignGoals: campaign.campaignGoals || [],
       })) || [],
     [data],
   );

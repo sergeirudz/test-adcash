@@ -1,6 +1,6 @@
 "use client";
 
-import type { JSX } from "react";
+import { JSX, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
@@ -10,8 +10,62 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import GeoCountrySelect from "@/components/dashboard/campaigns/create/step1/GeoCountrySelect";
+import { useCreateCampaign } from "@/components/dashboard/campaigns/create/CreateCampaignContextProvider";
 
 export default function GeoTargeting(): JSX.Element {
+  const { campaignData, setCampaignData } = useCreateCampaign();
+  const [worldwide, setWorldwide] = useState(true);
+  const [countries, setCountries] = useState(false);
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (campaignData.geoTargeting) {
+      setWorldwide(campaignData.geoTargeting.worldwide ?? true);
+      setCountries(!campaignData.geoTargeting.worldwide);
+      setSelectedCountries(campaignData.geoTargeting.countries || []);
+    }
+  }, []);
+
+  useEffect(() => {
+    setCampaignData((prevData) => {
+      return {
+        ...prevData,
+        geoTargeting: {
+          worldwide,
+          countries: selectedCountries,
+        },
+      };
+    });
+  }, [worldwide, selectedCountries, setCampaignData]);
+
+  const handleTargetingChange = (isWorldwide: boolean) => {
+    setWorldwide(isWorldwide);
+    setCountries(!isWorldwide);
+
+    setCampaignData((prevData) => {
+      if (isWorldwide) {
+        return {
+          ...prevData,
+          geoTargeting: {
+            worldwide: true,
+            countries: [],
+          },
+          // Keep only the worldwide goal if it exists, or initialize it with 0
+          campaignGoals: prevData.campaignGoals.find(
+            (goal) => goal.countryCode === "WW",
+          )
+            ? prevData.campaignGoals.filter((goal) => goal.countryCode === "WW")
+            : [{ countryCode: "WW", payoutSum: 0 }],
+        };
+      } else {
+        return {
+          ...prevData,
+          campaignGoals: [],
+        };
+      }
+    });
+  };
+
   return (
     <form
       onSubmit={(event) => {
@@ -30,11 +84,15 @@ export default function GeoTargeting(): JSX.Element {
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
+                value={worldwide ? "worldwide" : "countries"}
+                onChange={(e) =>
+                  handleTargetingChange(e.target.value === "worldwide")
+                }
               >
                 <FormControlLabel
-                  value="worldwide"
                   control={<Radio />}
                   label="Worldwide"
+                  value="worldwide"
                 />
 
                 <FormControlLabel
@@ -42,7 +100,14 @@ export default function GeoTargeting(): JSX.Element {
                   control={<Radio />}
                   label="Countries"
                 />
-                <GeoCountrySelect />
+                {!worldwide && (
+                  <GeoCountrySelect
+                    selectedCountries={selectedCountries}
+                    onCountriesChange={(countries) => {
+                      setSelectedCountries(countries);
+                    }}
+                  />
+                )}
               </RadioGroup>
             </FormControl>
           </Stack>
