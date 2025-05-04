@@ -19,6 +19,7 @@ steps:
       - '--platform=managed'
       - '--quiet'
       - '--port=80'
+      - '--timeout=600s'
       - '--allow-unauthenticated'
       - '--set-env-vars=DATABASE_URI=$_DATABASE_URI,CORS_ORIGIN=$_CORS_ORIGIN'
 

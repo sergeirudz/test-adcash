@@ -1,11 +1,9 @@
-# Testing and coverage
 test/
 coverage/
 *.spec.ts
 *.test.ts
 jest.config.js
 
-# Documentation and configs
 *.md
 docs/
 .eslintrc
@@ -14,30 +12,25 @@ docs/
 .vscode/
 .idea/
 
-# Build artifacts
 dist/
 build/
 
-# Temporary files
 .DS_Store
 Thumbs.db
 *.tmp
 *.bak
 *.log
 
-# Docker and deployment files
 Dockerfile*
 docker-compose*
 cloudbuild.yml
 
-# Environment files (already included but adding for clarity)
 .env*
 .env.local
 .env.development
 .env.test
 .env.production
 
-# Image and document files
 *.pdf
 *.jpg
 *.jpeg
