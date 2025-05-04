@@ -21,9 +21,16 @@ export class CreateCampaignDto {
   @IsNotEmpty()
   deviceType: Record<string, any>[];
 
+  @IsObject()
+  @IsNotEmpty()
+  geoTargeting: {
+    worldwide: boolean;
+    countries: string[];
+  };
+
   @IsArray()
   @IsNotEmpty()
-  geoTargeting: Record<string, any>[];
+  campaignGoals: Record<string, any>[];
 
   @IsArray()
   @IsNotEmpty()
@@ -43,7 +50,7 @@ export class CreateCampaignDto {
 
   @IsArray()
   @IsNotEmpty()
-  deviceBrowserVTargeting: Record<string, any>[];
+  deviceBrowserTargeting: Record<string, any>[];
 
   @IsArray()
   @IsNotEmpty()

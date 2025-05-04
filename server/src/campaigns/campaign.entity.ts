@@ -19,7 +19,13 @@ export class AdCampaign {
   deviceType: Record<string, any>[];
 
   @Column('json')
-  geoTargeting: Record<string, any>[];
+  geoTargeting: {
+    worldwide: boolean;
+    countries: string[];
+  };
+
+  @Column('json')
+  campaignGoals: Record<string, any>[];
 
   @Column('json')
   supplySources: Record<string, any>[];
@@ -34,7 +40,7 @@ export class AdCampaign {
   deviceOsTargeting: Record<string, any>[];
 
   @Column('json')
-  deviceBrowserVTargeting: Record<string, any>[];
+  deviceBrowserTargeting: Record<string, any>[];
 
   @Column('json')
   deviceLanguageTargeting: Record<string, any>[];

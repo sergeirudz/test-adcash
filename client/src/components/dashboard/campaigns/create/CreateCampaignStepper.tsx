@@ -23,6 +23,7 @@ import Bids from "@/components/dashboard/campaigns/create/step4/Bids";
 import Cappings from "@/components/dashboard/campaigns/create/step4/Cappings";
 import Overview from "@/components/dashboard/campaigns/create/step5/Overview";
 import CreateCampaignContextProvider from "@/components/dashboard/campaigns/create/CreateCampaignContextProvider";
+import Goals from "@/components/dashboard/campaigns/create/step3/Goals";
 
 const steps = [
   {
@@ -42,7 +43,7 @@ const steps = [
   },
   {
     label: "Creatives",
-    nodes: [Creatives],
+    nodes: [Creatives, Goals],
   },
   {
     label: "Budget",
@@ -102,7 +103,17 @@ export default function CreateCampaignStepper() {
   return (
     <CreateCampaignContextProvider>
       <Box sx={{ width: "100%" }}>
-        <Stepper nonLinear activeStep={activeStep}>
+        <Stepper
+          nonLinear
+          activeStep={activeStep}
+          sx={{
+            overflowX: {
+              xs: "auto",
+              md: "hidden",
+            },
+            minHeight: "7rem",
+          }}
+        >
           {steps.map((step, index) => (
             <Step key={index} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>

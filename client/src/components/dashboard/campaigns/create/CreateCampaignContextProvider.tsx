@@ -11,16 +11,24 @@ export interface AdCreative {
   creative: string[];
 }
 
+export interface CampaignGoal {
+  countryCode: string;
+  payoutSum: number;
+}
+
 export interface CampaignData {
   id?: string;
   campaignName: string;
   deviceType: { type: string; selected: boolean }[];
-  geoTargeting: { country: string; targeting: string }[];
+  geoTargeting: {
+    worldwide: boolean;
+    countries: string[];
+  };
   supplySources: { source: string; selected: boolean }[];
   userInterests: { interest: string; selected: boolean }[];
   websiteCategories: { category: string; selected: boolean }[];
   deviceOsTargeting: { os: string; version: string; selected: boolean }[];
-  deviceBrowserVTargeting: { browser: string; selected: boolean }[];
+  deviceBrowserTargeting: { browser: string; selected: boolean }[];
   deviceLanguageTargeting: { language: string; selected: boolean }[];
   contentTargeting: {
     targeting: string;
@@ -31,6 +39,7 @@ export interface CampaignData {
   connectionType: { type: string; targeting: string }[];
   connectionOrganizationsIsp: { name: string; targeting: string }[];
   adCreatives: AdCreative[];
+  campaignGoals: CampaignGoal[];
   weeklyDistribution: {
     247: boolean;
     time: { start: string; end: string; days: number[] };
@@ -65,18 +74,22 @@ interface CreateCampaignContextType {
 const initialCampaignData: CampaignData = {
   campaignName: "",
   deviceType: [],
-  geoTargeting: [],
+  geoTargeting: {
+    worldwide: true,
+    countries: [],
+  },
   supplySources: [],
   userInterests: [],
   websiteCategories: [],
   deviceOsTargeting: [],
-  deviceBrowserVTargeting: [],
+  deviceBrowserTargeting: [],
   deviceLanguageTargeting: [],
   contentTargeting: [],
   trafficRestrictions: [],
   connectionType: [],
   connectionOrganizationsIsp: [],
   adCreatives: [],
+  campaignGoals: [],
   weeklyDistribution: [],
   budget: [],
   campaignScheduling: [],

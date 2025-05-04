@@ -115,6 +115,7 @@ const Creatives = () => {
         name="landingPage"
         label="Landing page"
         variant="outlined"
+        placeholder="https://example.com/landing-page"
         value={landingPageUrl}
         onChange={(e) => setLandingPageUrl(e.target.value)}
       />
