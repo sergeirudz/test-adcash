@@ -3,7 +3,10 @@ import { LogLevel } from "@/lib/logger";
 
 export interface Config {
   site: { name: string; description: string; themeColor: string; url: string };
-  server: { url: string | undefined };
+  server: {
+    url: string | undefined;
+    version: "v1";
+  };
   logLevel: keyof typeof LogLevel;
 }
 
@@ -16,6 +19,7 @@ export const config: Config = {
   },
   server: {
     url: process.env.NEXT_PUBLIC_SERVER_URL,
+    version: "v1",
   },
   logLevel:
     (process.env.NEXT_PUBLIC_LOG_LEVEL as keyof typeof LogLevel) ??

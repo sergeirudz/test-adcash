@@ -46,7 +46,9 @@ export interface PaginatedResponse<T> {
 
 export const campaignsApi = createApi({
   reducerPath: "campaignsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${config.server.url}/campaigns` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${config.server.url}/${config.server.version}/campaigns`,
+  }),
   tagTypes: ["getCampaigns"],
   endpoints: (build) => ({
     createCampaign: build.mutation({
