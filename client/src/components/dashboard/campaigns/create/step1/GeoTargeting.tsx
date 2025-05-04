@@ -50,7 +50,6 @@ export default function GeoTargeting(): JSX.Element {
             worldwide: true,
             countries: [],
           },
-          // Keep only the worldwide goal if it exists, or initialize it with 0
           campaignGoals: prevData.campaignGoals.find(
             (goal) => goal.countryCode === "WW",
           )

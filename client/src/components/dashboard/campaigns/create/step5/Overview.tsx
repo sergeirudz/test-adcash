@@ -14,10 +14,11 @@ import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import CreateCampaign from "@/components/dashboard/campaigns/create/step5/CreateCampaign";
+import { countries } from "../config";
 
 const Overview = () => {
   const { campaignData } = useCreateCampaign();
-  const { campaignName, adCreatives = [] } = campaignData;
+  const { campaignName, adCreatives = [], campaignGoals = [] } = campaignData;
 
   return (
     <Card
@@ -64,6 +65,62 @@ const Overview = () => {
           </TableContainer>
         ) : (
           <Typography color="text.secondary">No ad creatives added</Typography>
+        )}
+
+        <Divider sx={{ my: 3 }} />
+
+        <Typography variant="h6" gutterBottom>
+          Campaign Goals
+        </Typography>
+        {campaignGoals && campaignGoals.length > 0 ? (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <strong>Country</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Payout</strong>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {campaignGoals.map((goal, index) => {
+                  const countryInfo = countries.find(
+                    (country) => country.code === goal.countryCode,
+                  );
+
+                  return (
+                    <TableRow key={index}>
+                      <TableCell>
+                        {goal.countryCode === "WW" ? (
+                          "Worldwide"
+                        ) : (
+                          <Box display="flex" alignItems="center">
+                            <img
+                              loading="lazy"
+                              width="20"
+                              height="14"
+                              src={`https://flagcdn.com/w20/${goal.countryCode.toLowerCase()}.png`}
+                              alt=""
+                              style={{ marginRight: 8 }}
+                            />
+                            {countryInfo ? countryInfo.label : goal.countryCode}
+                          </Box>
+                        )}
+                      </TableCell>
+                      <TableCell>${goal.payoutSum.toFixed(2)}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Typography color="text.secondary">
+            No campaign goals added
+          </Typography>
         )}
       </CardContent>
 

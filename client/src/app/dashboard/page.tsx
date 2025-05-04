@@ -23,7 +23,7 @@ const cards = [
     title: "Step 2:",
     description: "Add funds to start your campaign",
     logo: "",
-    href: "#",
+    href: "",
     buttonLabel: "Add funds",
   },
 ] satisfies DashboardCard[];

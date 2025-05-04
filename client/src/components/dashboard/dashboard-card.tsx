@@ -3,12 +3,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Clock as ClockIcon } from "@phosphor-icons/react/dist/ssr/Clock";
-import { Download as DownloadIcon } from "@phosphor-icons/react/dist/ssr/Download";
-import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import RouterLink from "next/link";
@@ -53,9 +49,15 @@ export function DashboardCard({ data }: DashboardCardProps): React.JSX.Element {
         justifyContent="center"
         sx={{ alignItems: "center", p: 2 }}
       >
-        <Link passHref href={data.href} component={RouterLink}>
-          <Button variant="contained">{data.buttonLabel}</Button>
-        </Link>
+        {!!data.href ? (
+          <Link passHref href={data.href} component={RouterLink}>
+            <Button variant="contained">{data.buttonLabel}</Button>
+          </Link>
+        ) : (
+          <Button variant="contained" disabled={true}>
+            {data.buttonLabel}
+          </Button>
+        )}
       </Stack>
     </Card>
   );

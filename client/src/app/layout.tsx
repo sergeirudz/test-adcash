@@ -20,6 +20,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps): React.JSX.Element {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.webp" sizes="any" />
+      </head>
       <body>
         <LocalizationProvider>
           <UserProvider>
