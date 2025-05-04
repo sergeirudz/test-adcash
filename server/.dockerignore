@@ -8,12 +8,14 @@ jest.config.js
 docs/
 .eslintrc
 .prettierrc
+.npmrc
 .github/
 .vscode/
 .idea/
 
 dist/
 build/
+node_modules/
 
 .DS_Store
 Thumbs.db
@@ -40,3 +42,6 @@ cloudbuild.yml
 *.bmp
 *.tiff
 *.webp
+
+package-lock.json.*
+yarn.lock.*

@@ -10,7 +10,8 @@ async function bootstrap() {
     origin: process.env.CORS_ORIGIN ?? 'http://localhost:3000',
     credentials: false,
   });
-  const port = parseInt(process.env.PORT!, 10) || 4000;
+  const port = Number(process.env.PORT) || 4000;
+  console.log(`🚀 =====>  Server starting on port ${port}`);
   await app.listen(port, '0.0.0.0');
 }
 
