@@ -4,19 +4,21 @@ import { AppService } from './app.service';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdCampaign } from './campaigns/campaign.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     CampaignsModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
-      synchronize: true, // false prod
-      entities: [AdCampaign],
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        url: configService.get('DATABASE_URI'),
+        synchronize: true, // TODO: migrations
+        entities: [AdCampaign],
+      }),
     }),
   ],
   controllers: [AppController],

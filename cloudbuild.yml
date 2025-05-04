@@ -1,0 +1,36 @@
+steps:
+  # Build the server image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-server'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/server:$COMMIT_SHA', '-f', 'server/Dockerfile', './server' ]
+
+  # Push the server image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-server'
+    args: [ 'push', 'gcr.io/$PROJECT_ID/server:$COMMIT_SHA' ]
+
+  # Deploy server to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-server'
+    args:
+      - 'gcloud'
+      - 'run'
+      - 'deploy'
+      - 'server'
+      - '--image=gcr.io/$PROJECT_ID/server:$COMMIT_SHA'
+      - '--region=us-central1'
+      - '--platform=managed'
+      - '--quiet'
+      - '--port=80'
+      - '--allow-unauthenticated'
+      - '--set-env-vars=DATABASE_URI=$_DATABASE_URI'
+
+images:
+  - 'gcr.io/$PROJECT_ID/server:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# This allows you to set the DATABASE_URI in your Cloud Build trigger settings
+substitutions:
+  _DATABASE_URI: ''
