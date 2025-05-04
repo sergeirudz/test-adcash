@@ -1,14 +1,14 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'build-server'
+    id: 'build-adcash-server'
     args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA', '-f', 'server/Dockerfile', '.' ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'push-server'
+    id: 'push-adcash-server'
     args: [ 'push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA' ]
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    id: 'deploy-server'
+    id: 'deploy-adcash-server'
     args:
       - 'gcloud'
       - 'run'
