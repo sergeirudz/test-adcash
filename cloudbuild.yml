@@ -1,7 +1,7 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-adcash-server'
-    args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA', '-f', 'server/Dockerfile', '.' ]
+    args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/server:$COMMIT_SHA', '-f', 'server/Dockerfile', './server' ]
 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-adcash-server'
