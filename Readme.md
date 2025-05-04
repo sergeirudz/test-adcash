@@ -29,3 +29,7 @@ https://adcash-client-666200250028.europe-west1.run.app
 ## Assignment Details
 
 - full-stack-assignment-2024-3ax.pdf
+
+## Time spend
+
+![Timespent](./timespent.png)
