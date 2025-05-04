@@ -1,6 +1,3 @@
-node_modules
-.next
-
 # Testing and coverage
 test/
 coverage/

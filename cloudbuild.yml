@@ -62,5 +62,5 @@ options:
 substitutions:
   _DATABASE_URI: ''
   _CORS_ORIGIN: 'https://adcash-client-$PROJECT_ID.europe-west1.run.app'
-  _SERVER_URL: 'https://adcash-server-$PROJECT_ID.europe-west1.run.app/'
+  _SERVER_URL: 'https://adcash-server-$PROJECT_ID.europe-west1.run.app'
   _CLIENT_URL: 'https://adcash-client-$PROJECT_ID.europe-west1.run.app'
