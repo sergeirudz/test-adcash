@@ -16,8 +16,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get('DATABASE_URI'),
-        synchronize: true, // TODO: migrations
-        entities: [AdCampaign],
+        synchronize: false,
+        ssl: false,
+        logging: false,
+        entities: [AdCampaign, 'dist/domain/**/*.entity.js'],
+        migrations: ['dist/database/migrations/*.js'],
+        migrationsTableName: 'migrations',
       }),
     }),
   ],
