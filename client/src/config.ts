@@ -9,7 +9,7 @@ export interface Config {
 
 export const config: Config = {
   site: {
-    name: "Devias Kit",
+    name: "AdCash",
     description: "",
     themeColor: "#090a0b",
     url: getSiteURL(),
