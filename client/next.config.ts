@@ -18,6 +18,7 @@ const nextConfig: NextConfig = withPWA({
   typescript: {
     ignoreBuildErrors: true, // Template files have too many TS errors to spend time fixing them.
   },
+  output: "standalone",
 });
 
 export default nextConfig;

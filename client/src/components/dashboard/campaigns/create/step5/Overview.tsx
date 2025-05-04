@@ -20,7 +20,12 @@ const Overview = () => {
   const { campaignName, adCreatives = [] } = campaignData;
 
   return (
-    <Card>
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <CardHeader title="Campaign Overview" />
       <CardContent>
         <Box sx={{ mb: 3 }}>
