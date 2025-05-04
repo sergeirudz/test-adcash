@@ -24,7 +24,14 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-adcash-client'
-    args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/client:$COMMIT_SHA', '-f', 'client/Dockerfile', './client' ]
+    args: [
+      'build',
+      '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/images/client:$COMMIT_SHA',
+      '-f', 'client/Dockerfile',
+      '--build-arg', 'NEXT_PUBLIC_SERVER_URL=$_SERVER_URL',
+      '--build-arg', 'NEXT_PUBLIC_SITE_URL=$_CLIENT_URL',
+      './client'
+    ]
 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-adcash-client'
