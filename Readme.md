@@ -24,7 +24,7 @@ https://adcash-client-666200250028.europe-west1.run.app
 ## Notes
 
 - I did not fix all Typescript errors since there are too many template files.
-- Server has campaign entity has too many fields since I tried started adding real campaign fields.
+- Server campaign entity has too many fields since I started adding real campaign fields, but it would add features outside the scope of the assignment.
 
 ## Assignment Details
 
