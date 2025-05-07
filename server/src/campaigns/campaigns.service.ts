@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdCampaign } from './campaign.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateCampaignDto, UpdateCampaignDto } from './campaign.dto';
 import {
   FilterOperator,
@@ -51,7 +55,9 @@ export class CampaignsService {
   }
 
   async getById(id: number): Promise<AdCampaign | null> {
-    if (!id) return null;
+    if (!id) {
+      throw new BadRequestException('Invalid campaign ID');
+    }
     return await this.repository.findOne({ where: { id } });
   }
 
@@ -67,7 +73,23 @@ export class CampaignsService {
     return this.repository.save({ ...existingCampaign, ...campaign });
   }
 
-  async delete(id: number): Promise<any> {
+  async delete(id: number): Promise<DeleteResult> {
+    if (!id) {
+      throw new BadRequestException('Invalid campaign ID');
+    }
     return this.repository.delete(id);
+  }
+
+  async toggle(id: number): Promise<AdCampaign> {
+    if (!id) {
+      throw new BadRequestException('Invalid campaign ID');
+    }
+    const campaign = await this.repository.findOne({ where: { id } });
+    if (!campaign) {
+      throw new NotFoundException(`Campaign "${id}" not found`);
+    }
+
+    campaign.active = !campaign.active;
+    return await this.repository.save(campaign);
   }
 }

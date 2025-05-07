@@ -11,10 +11,15 @@ import {
 import {
   useDeleteCampaignByIdMutation,
   useGetCampaignsQuery,
+  useToggleCampaignMutation,
 } from "@/lib/redux/api/campaignsApi";
 import CampaignsTableToolbar from "@/components/dashboard/campaigns/list/CampaignsTableToolbar";
 import { Box, List, ListItem, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import StopCircleIcon from "@mui/icons-material/StopCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 const CampaignsTable: FC = () => {
   const [queryParams, setQueryParams] = useState({
@@ -27,6 +32,7 @@ const CampaignsTable: FC = () => {
 
   const [deleteCampaign, _deleteCampaignResponse] =
     useDeleteCampaignByIdMutation();
+  const [toggleCampaign] = useToggleCampaignMutation();
 
   const onFilterChange = useCallback((filterModel: GridFilterModel) => {
     const filter: Record<string, any> = {};
@@ -99,9 +105,16 @@ const CampaignsTable: FC = () => {
   const renderActions = (params: GridRenderCellParams) => {
     return (
       <Box>
-        <Button onClick={() => deleteCampaign(params.id)} variant="text">
-          Delete
-        </Button>
+        <Tooltip title={params.row.active ? "Stop campaign" : "Start campaign"}>
+          <IconButton onClick={() => toggleCampaign(params.id)}>
+            {params.row.active ? <StopCircleIcon /> : <PlayCircleIcon />}
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete campaign">
+          <IconButton onClick={() => deleteCampaign(params.id)}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
     );
   };

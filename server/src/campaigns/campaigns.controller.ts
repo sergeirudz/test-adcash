@@ -56,4 +56,12 @@ export class CampaignsController {
   ) {
     return await this.campaignsService.update(id, campaign);
   }
+
+  @Patch(':id/toggle')
+  async toggleCampaign(
+    @Param('id', ParseUUIDPipe)
+    id: number,
+  ) {
+    return await this.campaignsService.toggle(id);
+  }
 }

@@ -114,6 +114,14 @@ export const campaignsApi = createApi({
       }),
       invalidatesTags: ["getCampaigns"],
     }),
+
+    toggleCampaign: build.mutation<void, string | number>({
+      query: (id) => ({
+        url: `/${id}/toggle`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["getCampaigns"],
+    }),
   }),
 });
 
@@ -121,4 +129,5 @@ export const {
   useCreateCampaignMutation,
   useGetCampaignsQuery,
   useDeleteCampaignByIdMutation,
+  useToggleCampaignMutation,
 } = campaignsApi;
